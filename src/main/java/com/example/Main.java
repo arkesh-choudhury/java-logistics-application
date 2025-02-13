@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        // JSON storage initialisation for data persistence
         JsonStorage<Customer> customerStorage = new JsonStorage<>("src/main/resources/customers.json", new TypeReference<List<Customer>>() {});
         JsonStorage<Order> orderStorage = new JsonStorage<>("src/main/resources/orders.json", new TypeReference<List<Order>>() {});
         JsonStorage<DeliveryAgent> agentStorage = new JsonStorage<>("src/main/resources/agents.json", new TypeReference<List<DeliveryAgent>>() {});
@@ -22,7 +23,7 @@ public class Main {
             agentStorage.saveToJson(agents);
         }
 
-        // 1. creating a customer
+        // creating a customer
         System.out.print("Enter Customer ID: ");
         String customerId = scanner.nextLine();
         System.out.print("Enter Customer Name: ");
@@ -37,7 +38,7 @@ public class Main {
         System.out.println("Name: " + customer.getName());
         System.out.println("Wallet Balance: $" + customer.getWalletBalance());
         
-        // 2. order type (polymorphism)
+        // order type (polymorphism)
         System.out.println("\nChoose Order Type:");
         System.out.println("1. Regular Order");
         System.out.println("2. Express Order");
@@ -67,7 +68,7 @@ public class Main {
             System.out.println("Agent: " + bid.getAgentId() + " | Amount: $" + bid.getAmount() + " | Estimated Time: " + bid.getEstimatedTime() + " mins");
         }
         
-        // 4. bid selection based on order type (regular/express)
+        // bid selection based on order type (regular/express)
         Bid bestBid = order.selectBestBid();
         System.out.println("\nBest Bid Selected: ");
         System.out.println("Agent: " + bestBid.getAgentId() + " | Amount: $" + bestBid.getAmount());
@@ -93,7 +94,7 @@ public class Main {
             return;
         }
         
-        // 6. rating the delivery agent
+        // rating the delivery agent
         System.out.print("\nRate the delivery agent (1-5): ");
         double rating = scanner.nextDouble();
         if (assignedAgent != null) {
